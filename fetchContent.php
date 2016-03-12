@@ -31,5 +31,5 @@ foreach ($tags as $tag => $count) {
 $result .= '</tr></table>';
 
 $result .= $html->getOutput();
-echo $result;
+echo json_encode(array('success' => true, 'result' => $result));
 ?>

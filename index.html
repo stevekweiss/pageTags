@@ -25,12 +25,10 @@
                 },
                 success : function(responseText) {
                     $('#loading').text('');
-                    if (responseText.startsWith'{') {
-                        var response = JSON.parse(responseText);
-                        $('#error').text(response['error']);
-                    } else {
+                    var response = JSON.parse(responseText);
+                    if (response['success'] == true) {
                         var heading = "<strong>Analyzed content for " + val + ":</strong>";
-                        $('#ajaxGetUserServletResponse').html(heading + responseText);
+                        $('#ajaxGetUserServletResponse').html(heading + response['result']);
                         $(".highlight").hover(function () {
                             var t = $(this).text();
                             $('.tag_' + t).css("background-color", "yellow");
@@ -38,6 +36,9 @@
                             var t = $(this).text();
                             $('.tag_' + t).css("background-color", "inherit");
                         });
+                    }
+                    else {
+                        $('#error').text(response['error']);
                     }
                 }
 
