@@ -29,7 +29,6 @@
 /**
 * Required classes
 */
-require_once('PEAR.php');
 if (!defined('XML_HTMLSAX')) {
     define('XML_HTMLSAX', 'XML/');
 }
@@ -449,7 +448,7 @@ class XML_HTMLSax_NullHandler {
 * @package XML_HTMLSax
 * @access public
 */
-class XML_HTMLSax extends Pear {
+class XML_HTMLSax {
     /**
     * Instance of concrete subclass of XML_HTMLSax_StateParser
     * @var XML_HTMLSax_StateParser
