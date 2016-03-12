@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Fetch page and highlight tags</title>
+</head>
+<script src="http://code.jquery.com/jquery-1.10.2.js"
+        type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#url').blur(function() {
+            $.ajax({
+                url : '/pagetag2/fetchContent.php',
+                data : {
+                    url : $('#url').val()
+                },
+                success : function(responseText) {
+                    $('#ajaxGetUserServletResponse').html(responseText);
+                }
+            });
+        });
+    });
+</script>
+<body>
+<form>
+    Enter a url: <input type="text" id="url" />
+</form>
+<br>
+<br>
+
+<strong>Ajax Response</strong>:
+<div id="ajaxGetUserServletResponse"></div>
+</body>
+</html>
