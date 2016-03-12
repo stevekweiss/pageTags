@@ -2,31 +2,62 @@
 <head>
     <title>Fetch page and highlight tags</title>
 </head>
+<style>
+    .error {color: red}
+</style>
 <script src="http://code.jquery.com/jquery-1.10.2.js"
         type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        $('#url').blur(function() {
+        $('form').submit(function() {
+            $('#error').text('');
+            var val = $('#url').val();
+            if (!val.startsWith('http://') && !val.startsWith('https://')) {
+                $('#error').text('Invalid URL format');
+                return false;
+            }
+            $('#ajaxGetUserServletResponse').text('');
+            $('#loading').text('Loading...');
             $.ajax({
                 url : '/pagetag2/fetchContent.php',
                 data : {
-                    url : $('#url').val()
+                    url : val
                 },
                 success : function(responseText) {
-                    $('#ajaxGetUserServletResponse').html(responseText);
+                    $('#loading').text('');
+                    if (responseText.startsWith'{') {
+                        var response = JSON.parse(responseText);
+                        $('#error').text(response['error']);
+                    } else {
+                        var heading = "<strong>Analyzed content for " + val + ":</strong>";
+                        $('#ajaxGetUserServletResponse').html(heading + responseText);
+                        $(".highlight").hover(function () {
+                            var t = $(this).text();
+                            $('.tag_' + t).css("background-color", "yellow");
+                        }, function () {
+                            var t = $(this).text();
+                            $('.tag_' + t).css("background-color", "inherit");
+                        });
+                    }
                 }
+
             });
+            return false;
         });
+
+
     });
 </script>
 <body>
 <form>
-    Enter a url: <input type="text" id="url" />
+    Enter a url: <input type="text" size="100" id="url" /> <button>Submit</button>
 </form>
+<div id="error" class="error"></div>
+<div id="loading"></div>
+
 <br>
 <br>
 
-<strong>Ajax Response</strong>:
 <div id="ajaxGetUserServletResponse"></div>
 </body>
 </html>

@@ -11,6 +11,7 @@ class HtmlProcessor {
     var $html;
 
     var $output = '';
+    var $tags = array();
 
     function __construct($html) {	$this->html = $html;	}
 
@@ -24,31 +25,40 @@ class HtmlProcessor {
         $parser->set_jasp_handler('jaspHandler');
 
         $parser->parse($this->html);
+        arsort($this->tags);
     }
 
     function getOutput() { return $this->output; }
 
     function openHandler(& $parser,$name,$attrs) {
-        echo ( 'Open Tag Handler: '.$name.'<br />' );
-        echo ( 'Attrs:<pre>' );
-        print_r($attrs);
-        echo ( '</pre>' );
-       // $this->output = $this->output . $name;
+        $count = 1;
+        $key = strtolower($name);
+        if (isset($this->tags[$key])) {
+            $count = $this->tags[$key] + 1;
+        }
+        $this->tags[$key] = $count;
+
+        $str = "&lt;<span class=\"tag_$name\">$name</span>";
+        foreach ($attrs as $key => $val) {
+            $str .= " $key=\"$val\"";
+        }
+        $str .= '&gt;';
+        $this->output .= $str;
     }
     function closeHandler(& $parser,$name) {
-        echo ( 'Close Tag Handler: '.$name.'<br />' );
+        $this->output .= "&lt;/$name&gt;<br/>";
     }
     function dataHandler(& $parser,$data) {
-        echo ( 'Data Handler: '.$data.'<br />' );
     }
     function escapeHandler(& $parser,$data) {
-        echo ( 'Escape Handler: '.$data.'<br />' );
     }
     function piHandler(& $parser,$target,$data) {
-        echo ( 'PI Handler: '.$target.' - '.$data.'<br />' );
     }
     function jaspHandler(& $parser,$data) {
-        echo ( 'Jasp Handler: '.$data.'<br />' );
+    }
+
+    function getTags() {
+        return $this->tags;
     }
 
 }
