@@ -1,12 +1,14 @@
 <html>
 <head>
-    <title>Fetch page and highlight tags</title>
+    <title>Tag Analysis - Steve Weiss</title>
 </head>
-<style>
-    .error {color: red}
-    .response {margin-left: 100px; margin-top: 50px}
-</style>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<style>
+    body {margin-left: 50px}
+    .error {color: red}
+    .response {margin-top: 25px}
+    .output {margin-top: 25px}
+</style>
 <script src="http://code.jquery.com/jquery-1.10.2.js"
         type="text/javascript"></script>
 <script>
@@ -21,7 +23,7 @@
             $('#response').text('');
             $('#loading').text('Loading...');
             $.ajax({
-                url : '/pagetag2/fetchContent.php',
+                url : '/fetchContent.php',
                 data : {
                     url : val
                 },
@@ -65,7 +67,7 @@
     <br>
     <br>
 
-    <div id="response"></div>
+    <div id="response" class="response"></div>
     
 </div>
 </body>
