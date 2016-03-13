@@ -18,7 +18,7 @@ if ($output == false) {
 $html = new HtmlProcessor($output);
 $html->process();
 $tags = $html->getTags();
-$result = '<table><tr>';
+$result = '<table class="pure-table"><tr>';
 $i=0;
 foreach ($tags as $tag => $count) {
     $result .= "<td class=\"highlight\">$tag</td><td>$count</td>";
@@ -30,6 +30,6 @@ foreach ($tags as $tag => $count) {
 }
 $result .= '</tr></table>';
 
-$result .= $html->getOutput();
+$result .= '<div class="output">' . $html->getOutput() . '</div>';
 echo json_encode(array('success' => true, 'result' => $result));
 ?>
