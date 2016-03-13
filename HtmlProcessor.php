@@ -4,6 +4,8 @@
  * User: steveweiss
  * Date: 3/11/16
  * Time: 10:46 PM
+ *
+ * Parse the markup to get the tag count, and wrap tags in span elements
  */
 require_once('XML_HTMLSax-2.1.2/XML_HTMLSax-2.1.2/XML_HTMLSax.php');
 
@@ -11,6 +13,8 @@ class HtmlProcessor {
     var $html;
 
     var $output = '';
+
+    // Tags and counts
     var $tags = array();
 
     function __construct($html) {	$this->html = $html;	}
@@ -31,6 +35,7 @@ class HtmlProcessor {
     function getOutput() { return $this->output; }
 
     function openHandler(& $parser,$name,$attrs) {
+        // Increment the counter for the tag
         $count = 1;
         $key = strtolower($name);
         if (isset($this->tags[$key])) {
@@ -38,6 +43,7 @@ class HtmlProcessor {
         }
         $this->tags[$key] = $count;
 
+        // Wrap the tag in a span
         $str = "&lt;<span class=\"tag_$name\">$name</span>";
         foreach ($attrs as $key => $val) {
             $str .= " $key=\"$val\"";
@@ -49,12 +55,16 @@ class HtmlProcessor {
         $this->output .= "&lt;/$name&gt;<br/>";
     }
     function dataHandler(& $parser,$data) {
+        $this->output .= $data;
     }
     function escapeHandler(& $parser,$data) {
+        $this->output .= $data;
     }
     function piHandler(& $parser,$target,$data) {
+        $this->output .= $data;
     }
     function jaspHandler(& $parser,$data) {
+        $this->output .= $data;
     }
 
     function getTags() {
