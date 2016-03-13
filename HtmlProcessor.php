@@ -24,9 +24,6 @@ class HtmlProcessor {
         $parser->set_object($this);
         $parser->set_element_handler('openHandler','closeHandler');
         $parser->set_data_handler('dataHandler');
-        $parser->set_escape_handler('escapeHandler');
-        $parser->set_pi_handler('piHandler');
-        $parser->set_jasp_handler('jaspHandler');
 
         $parser->parse($this->html);
         arsort($this->tags);
@@ -57,15 +54,7 @@ class HtmlProcessor {
     function dataHandler(& $parser,$data) {
         $this->output .= $data;
     }
-    function escapeHandler(& $parser,$data) {
-        $this->output .= $data;
-    }
-    function piHandler(& $parser,$target,$data) {
-        $this->output .= $data;
-    }
-    function jaspHandler(& $parser,$data) {
-        $this->output .= $data;
-    }
+
 
     function getTags() {
         return $this->tags;
