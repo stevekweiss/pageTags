@@ -27,14 +27,18 @@ $tags = $html->getTags();
 $result = '<table class="pure-table"><tr>';
 $i=0;
 foreach ($tags as $tag => $count) {
-    $result .= "<td class=\"highlight\">$tag</td><td>$count</td>";
+    $result .= "<td><span class=\"highlight\">$tag</span> <span class=\"count\">($count)</span> </td>";
     $i++;
-    if ($i == 4) {
+    if ($i == 8) {
         $result .= "</tr><tr>";
         $i = 0;
     }
 }
-$result .= '</tr></table> Content:<p/>';
+while ($i < 8) {
+    $result .= "<td/>";
+    $i++;
+}
+$result .= '</tr></table> <p/>';
 
 // Send the table and the modified page contents as the response
 $result .= '<div class="output">' . $html->getOutput() . '</div>';
