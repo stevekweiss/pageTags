@@ -8,5 +8,7 @@ on my IDE, IntelliJ, and then figuring out how to deploy it on Tomcat on AWS.  I
 
 A working demo of the code can be found at http://ec2-54-191-48-26.us-west-2.compute.amazonaws.com/
 
+There is one known bug.  http://www.google.com does not load.
+
 Steve Weiss
 stevekweiss@gmail.com

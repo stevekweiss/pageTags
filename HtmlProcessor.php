@@ -24,6 +24,7 @@ class HtmlProcessor {
         $parser->set_object($this);
         $parser->set_element_handler('openHandler','closeHandler');
         $parser->set_data_handler('dataHandler');
+        $parser->set_escape_handler('escapeHandler');
 
         $parser->parse($this->html);
         arsort($this->tags);
@@ -55,6 +56,9 @@ class HtmlProcessor {
         $this->output .= $data;
     }
 
+    function escapeHandler(& $parser,$data) {
+        $this->output .= htmlspecialchars($data);
+    }
 
     function getTags() {
         return $this->tags;

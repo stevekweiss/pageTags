@@ -17,8 +17,8 @@
         $('form').submit(function() {
             $('#error').text('');
             var val = $('#url').val();
-            if (!val.startsWith('http://') && !val.startsWith('https://')) {
-                $('#error').text('Invalid URL format');
+            if (!val.startsWith('http://')) {
+                $('#error').text('Invalid url format.  Urls must start with http://');
                 return false;
             }
             $('#response').text('');
@@ -62,7 +62,7 @@
 </div>
 <div class="content">
     <form class="pure-form">
-        Enter a url: <input type="text" size="100" id="url" /> <button class="pure-button">Submit</button>
+        Enter a url: <input type="text" placeholder="http://www.cnn.com" size="100" id="url" /> <button class="pure-button">Submit</button>
     </form>
     <div id="error" class="error"></div>
     <div id="loading"></div>
