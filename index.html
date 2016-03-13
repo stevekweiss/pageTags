@@ -31,7 +31,7 @@
                     $('#loading').text('');
                     var response = JSON.parse(responseText);
                     if (response['success'] == true) {
-                        var heading = "<strong>Analyzed content for " + val + ":</strong>Hover over a tag to see its locations in the content";
+                        var heading = "<strong>Analyzed content for " + val + ":</strong><p/>Hover over a tag to see its locations in the content";
                         $('#response').html(heading + response['result']);
                         $(".highlight").hover(function () {
                             var t = $(this).text();
